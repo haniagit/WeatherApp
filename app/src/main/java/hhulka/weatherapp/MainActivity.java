@@ -1,5 +1,6 @@
 package hhulka.weatherapp;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private String addInfo = "";
     private int currentMonth = (Calendar.getInstance().get(Calendar.MONTH)) + 1;
     private boolean cityExists;
+    private boolean usingFav;
 
     private static final String TAG = "DATAx";
 
@@ -106,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getWeather(View view) {
-
+        if(!usingFav) {
+            city = editText1.getText().toString();
+        }
         new WeatherApi().execute(city);
 
         textview1.setVisibility(View.INVISIBLE);
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         double celc = Double.parseDouble(kelvin) - 273.15;
         Log.i(TAG, "getCelcius: celc: " + celc);
         Log.i(TAG, "getCelcius: celcFormat: " + String.format("%.02f", celc));
-        return String.format("%.02f", celc);
+        return String.format("%.01f", celc);
     }
 
     private String getKmperHWind(String meterPerSec) {
@@ -135,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
         String completeWeatherInfo = "";
         Log.i(TAG, "setInfoMessage: " + currentWeather);
         if (cityExists) {
-            completeWeatherInfo = "Current weather in " + city + ":\ntemperature: " + getCelcius(currentTemp) + " C\nconditions: " + currentWeather
+            completeWeatherInfo = "Current weather in " + city + ":\n" + currentWeather+ "\ntemperature: "
+                    + getCelcius(currentTemp) + " " + Character.toString ((char) 176) +"C" + "\nconditions: " + addInfo
                     + "\nwind speed: " + getKmperHWind(currentWind) + " km/s";
         } else {
             completeWeatherInfo = "Couldn't find given city (" + city + ").";
@@ -155,22 +160,27 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.heavy_clouds);
         } else if (addInfo.contains("few clouds") && !isHeavyWind) {
             imageView.setImageResource(R.drawable.light_clouds);
+            textview2.setTextColor(Color.DKGRAY);
         } else if (addInfo.contains("rain")) {
             imageView.setImageResource(R.drawable.rain);
         } else if (addInfo.contains("snow") || currentWeather.contains("Snow")) {
             imageView.setImageResource(R.drawable.snow);
+            textview2.setTextColor(Color.DKGRAY);
         } else if (addInfo.contains("thunderstorm") || currentWeather.contains("Thunderstorm")) {
             imageView.setImageResource(R.drawable.thunder);
         } else if (isHeavyWind) {
             imageView.setImageResource(R.drawable.wind);
         } else {
             imageView.setImageResource(R.drawable.light_clouds);
+            textview2.setTextColor(Color.DKGRAY);
         }
     }
 
     public void goToMain(View view) {
+        usingFav = false;
         editText1.setText("");
         textview2.setVisibility(View.INVISIBLE);
+        textview2.setTextColor(Color.WHITE);
         textview1.setVisibility(View.VISIBLE);
         editText1.setVisibility(View.VISIBLE);
         button1.setVisibility(View.VISIBLE);
@@ -195,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void favCity(View view){
+        usingFav = true;
         String tag = view.getTag().toString();
         if(tag.equals("warsaw")){
             city = "Warsaw";

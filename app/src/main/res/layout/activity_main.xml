@@ -74,7 +74,7 @@
         android:layout_marginRight="8dp"
         android:gravity="fill_vertical|center_horizontal"
         android:text="TextView"
-        android:textColor="?attr/colorBackgroundFloating"
+        android:textColor="@android:color/background_light"
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
