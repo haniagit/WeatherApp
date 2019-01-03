@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button1;
     private Button button2;
+    private Button warsawButton;
+    private Button parisButton;
+    private Button saigonButton;
     private EditText editText1;
     private TextView textview1;
     private TextView textview2;
@@ -103,12 +106,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getWeather(View view) {
-        city = editText1.getText().toString();
+
         new WeatherApi().execute(city);
 
         textview1.setVisibility(View.INVISIBLE);
         button1.setVisibility(View.INVISIBLE);
         editText1.setVisibility(View.INVISIBLE);
+        warsawButton.setVisibility(View.INVISIBLE);
+        parisButton.setVisibility(View.INVISIBLE);
+        saigonButton.setVisibility(View.INVISIBLE);
     }
 
     private String getCelcius(String kelvin) {
@@ -170,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
         button1.setVisibility(View.VISIBLE);
         setSeasonBackground();
         button2.setVisibility(View.INVISIBLE);
+
+        warsawButton.setVisibility(View.VISIBLE);
+        parisButton.setVisibility(View.VISIBLE);
+        saigonButton.setVisibility(View.VISIBLE);
     }
 
     private void setSeasonBackground() {
@@ -184,6 +194,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void favCity(View view){
+        String tag = view.getTag().toString();
+        if(tag.equals("warsaw")){
+            city = "Warsaw";
+        } else if (tag.equals("paris")){
+            city = "Paris";
+        } else if (tag.equals("saigon")){
+            city = "Saigon";
+        }
+        getWeather(findViewById(R.id.saigonButton));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,8 +214,12 @@ public class MainActivity extends AppCompatActivity {
         editText1 = findViewById(R.id.editText1);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
+        warsawButton = findViewById(R.id.warsawButton);
+        parisButton = findViewById(R.id.parisButton);
+        saigonButton = findViewById(R.id.saigonButton);
         textview1 = findViewById(R.id.textView1);
         textview2 = findViewById(R.id.textView2);
+        city = editText1.getText().toString();
 
         Log.i(TAG, "onCreate: currentMonth: " + currentMonth);
 

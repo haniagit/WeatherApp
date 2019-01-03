@@ -94,4 +94,43 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/warsawButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="favCity"
+        android:tag="warsaw"
+        android:text="Warsaw"
+        app:layout_constraintBottom_toTopOf="@+id/parisButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/parisButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="favCity"
+        android:tag="paris"
+        android:text="Paris"
+        app:layout_constraintBottom_toTopOf="@+id/saigonButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/saigonButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="favCity"
+        android:tag="saigon"
+        android:text="Saigon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
